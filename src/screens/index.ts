@@ -1,3 +1,4 @@
+import SearchScreen from './SearchScreen';
 import Home from './Home';
 
-export {Home};
+export {Home, SearchScreen};
