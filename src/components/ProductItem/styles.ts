@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: '#FFF',
+    marginVertical: 5,
   },
   container: {
     padding: 10,
-    flex: 5,
-  },
-
-  image: {
     flex: 3,
+  },
+  image: {
+    flex: 2,
     height: 150,
     resizeMode: 'contain',
   },
