@@ -1,4 +1,3 @@
-import SearchScreen from './SearchScreen';
-import Home from './Home';
-
-export {Home, SearchScreen};
+export { default as SearchScreen } from './SearchScreen';
+export { default as HomeScreen } from './Home';
+export { default as ProductScreen } from './ProductScreen';

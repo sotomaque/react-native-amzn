@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { ProductItem } from '../../components';
 import products from '../../data/products';
+import styles from './styles';
 
 const SearchScreen = () => {
   return (
@@ -15,11 +16,5 @@ const SearchScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  page: {
-    padding: 10,
-  },
-});
 
 export default SearchScreen;
