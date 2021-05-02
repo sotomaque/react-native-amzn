@@ -25,17 +25,19 @@ const ImageCarousel = ({ images }: ImageCarouselProps) => {
       }
     },
   );
-  useEffect(() => {
-    console.log('active Index', activeIndex);
-  }, [activeIndex]);
+
   return (
     <View style={styles.container}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
         data={images}
-        renderItem={({ item }) => (
-          <Image key={`${item}`} style={styles.image} source={{ uri: item }} />
+        renderItem={({ item, index }) => (
+          <Image
+            key={`${item}-${index}`}
+            style={styles.image}
+            source={{ uri: item }}
+          />
         )}
         snapToAlignment="center"
         snapToInterval={width}

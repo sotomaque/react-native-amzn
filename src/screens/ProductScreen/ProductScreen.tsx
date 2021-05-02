@@ -1,6 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { Button, ImageCarousel, QuantitySelector } from '../../components';
 
 import product from '../../data/product';
@@ -14,7 +14,7 @@ const ProductScreen = () => {
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text numberOfLines={1}>{product.title}</Text>
 
       {/* Image Carousel */}
@@ -64,7 +64,7 @@ const ProductScreen = () => {
         <Button title="Add to Cart" onPress={() => {}} />
         <Button title="Buy Now" onPress={() => {}} type="secondary" />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
