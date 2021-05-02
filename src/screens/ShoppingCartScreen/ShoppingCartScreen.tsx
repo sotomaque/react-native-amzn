@@ -12,7 +12,7 @@ const ShoppingCartScreen = () => {
       <FlatList
         data={products}
         renderItem={({ item, index }) => (
-          <ShoppingCartItem key={`${item.id}-${index}`} item={item} />
+          <ShoppingCartItem key={`${item.id}-${index}`} cartItem={item} />
         )}
         showsVerticalScrollIndicator={false}
       />

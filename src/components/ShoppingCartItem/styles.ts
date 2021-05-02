@@ -2,12 +2,11 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   root: {
-    flexDirection: 'row',
     borderColor: '#d1d1d1',
     borderWidth: 1,
-    borderRadius: 10,
-    backgroundColor: '#FFF',
-    marginVertical: 5,
+  },
+  body: {
+    flexDirection: 'row',
   },
   container: {
     padding: 10,
@@ -44,6 +43,11 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     textDecorationLine: 'line-through',
   },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quantityLabel: { fontSize: 16, marginLeft: 20, marginRight: 10 },
 });
 
 export default styles;
