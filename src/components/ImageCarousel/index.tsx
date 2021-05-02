@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, FlatList, Image, Dimensions, ViewToken } from 'react-native';
 
 import styles from './styles';

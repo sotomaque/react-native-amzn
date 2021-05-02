@@ -1,3 +1,4 @@
+import { ProductType } from './index';
 export type ProductType = {
   id: string;
   title: string;
@@ -6,4 +7,10 @@ export type ProductType = {
   ratings: number;
   price: number;
   prevPrice?: number;
+};
+
+export type CartItemType = {
+  id: string;
+  quantity: number;
+  item: ProductType;
 };
