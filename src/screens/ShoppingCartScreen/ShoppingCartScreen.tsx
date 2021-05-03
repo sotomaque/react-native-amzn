@@ -6,6 +6,9 @@ import products from '../../data/cart';
 import styles from './styles';
 
 const ShoppingCartScreen = () => {
+  const prices = products.map(product => product.item.price);
+  const totalPrice = prices.reduce((a, b) => a + b);
+
   return (
     <View style={styles.container}>
       {/* Subtotal + Proceed to checkout button */}
@@ -16,7 +19,7 @@ const ShoppingCartScreen = () => {
             Subtotal ({products.length} item{products.length > 1 ? 's' : ''}):
           </Text>
           <Text style={styles.priceSuperscript}>$</Text>
-          <Text style={styles.price}>232.87</Text>
+          <Text style={styles.price}>{totalPrice}</Text>
         </View>
 
         <Button onPress={() => {}} title={'Proceed to checkout'} />
