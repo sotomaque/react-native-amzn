@@ -1,15 +1,23 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, ViewStyle, TextStyle } from 'react-native';
 
 import styles from './styles';
 
 type ButtonProps = {
   title: string;
   onPress: () => void;
-  type?: 'primary' | 'secondary';
+  type?: 'primary' | 'secondary' | 'outline';
+  style?: ViewStyle;
+  textStyle?: TextStyle;
 };
 
-const Button = ({ title, onPress, type }: ButtonProps) => {
+const colorMap = {
+  primary: 'rgb(243, 213, 54)',
+  secondary: 'rgb(233, 162, 51)',
+  outline: 'transparent',
+};
+
+const Button = ({ title, onPress, type, style, textStyle }: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -17,11 +25,15 @@ const Button = ({ title, onPress, type }: ButtonProps) => {
         styles.button,
         // eslint-disable-next-line react-native/no-inline-styles
         {
-          backgroundColor:
-            type === 'primary' ? 'rgb(243, 213, 54)' : 'rgb(233, 162, 51)',
+          backgroundColor: type ? colorMap[type] : '',
+          borderColor: type === 'outline' ? '#c2c2c2' : '',
+          borderWidth: type === 'outline' ? 1 : 0,
+        },
+        {
+          ...style,
         },
       ]}>
-      <Text style={styles.buttonLabel}>{title}</Text>
+      <Text style={[styles.buttonLabel, { ...textStyle }]}>{title}</Text>
     </TouchableOpacity>
   );
 };

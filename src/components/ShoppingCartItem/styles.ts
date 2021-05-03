@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   root: {
     borderColor: '#d1d1d1',
-    borderWidth: 1,
+    borderTopWidth: 1,
+    paddingTop: 10,
+    margin: 10,
   },
   body: {
     flexDirection: 'row',
@@ -46,8 +48,22 @@ const styles = StyleSheet.create({
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 5,
   },
-  quantityLabel: { fontSize: 16, marginLeft: 20, marginRight: 10 },
+  primeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  primeImage: {
+    width: 50,
+    height: 30,
+    marginHorizontal: 10,
+    resizeMode: 'contain',
+  },
+  inStockLabel: { color: 'green' },
+  deleteButton: { marginLeft: 30, padding: 10 },
+  deleteLabel: { fontSize: 12 },
+  saveForLaterButton: { marginLeft: 10, padding: 10 },
 });
 
 export default styles;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import QuantitySelector from '../QuantitySelector';
 import { CartItemType } from '../../types';
 import styles from './styles';
+import { Button } from '..';
 
 type ShoppingCartItemProps = {
   cartItem: CartItemType;
@@ -12,14 +12,7 @@ type ShoppingCartItemProps = {
 
 const ShoppingCartItem = ({ cartItem }: ShoppingCartItemProps) => {
   const { quantity: quantityProp } = cartItem;
-  const {
-    image: uri,
-    title,
-    avgRating: rating,
-    ratings: ratingsCount,
-    price,
-    prevPrice = '',
-  } = cartItem.item;
+  const { image: uri, title, price } = cartItem.item;
 
   const [quantity, setQuantity] = useState(quantityProp);
 
@@ -36,56 +29,41 @@ const ShoppingCartItem = ({ cartItem }: ShoppingCartItemProps) => {
           <Text numberOfLines={3} style={styles.title}>
             {title}
           </Text>
-          {/* Ratings */}
-          <View style={styles.ratingsContainer}>
-            {/* Full Star ratings */}
-            {Array(Math.floor(rating))
-              .fill(0)
-              .map(_ => (
-                <FontAwesome
-                  name="star"
-                  style={styles.star}
-                  size={18}
-                  color="#e47911"
-                />
-              ))}
-            {/* Half-Star Ratings */}
-            {rating % 1 !== 0 && rating % 1 >= 0.5 && (
-              <FontAwesome
-                name="star-half-empty"
-                style={styles.star}
-                size={18}
-                color="#e47911"
-              />
-            )}
 
-            {/* Remainder */}
-            {Array(
-              5 - (rating % 1 >= 0.5 ? Math.ceil(rating) : Math.floor(rating)),
-            )
-              .fill(0)
-              .map(_ => (
-                <FontAwesome
-                  name="star-o"
-                  style={styles.star}
-                  size={18}
-                  color="#e47911"
-                />
-              ))}
-
-            <Text style={styles.ratingLabel}>{ratingsCount}</Text>
+          {/* Prime Label */}
+          <View style={styles.primeContainer}>
+            {/* Price */}
+            <Text style={styles.price}>${price}</Text>
+            <Image
+              source={{
+                uri:
+                  'https://www.webretailer.com/wp-content/uploads/2019/04/2.-Amazon-Prime-badge.png',
+              }}
+              style={styles.primeImage}
+            />
           </View>
-          {/* Price */}
-          <Text style={styles.price}>
-            from ${price}
-            {'  '}
-            {prevPrice && <Text style={styles.oldPrice}>${prevPrice}</Text>}
-          </Text>
+
+          {/* In Stock Label */}
+          <Text style={styles.inStockLabel}>In Stock</Text>
         </View>
       </View>
       <View style={styles.quantityContainer}>
-        <Text style={styles.quantityLabel}>Quantity</Text>
         <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+
+        <Button
+          style={styles.deleteButton}
+          onPress={() => {}}
+          title="Delete"
+          type="outline"
+          textStyle={styles.deleteLabel}
+        />
+        <Button
+          style={styles.saveForLaterButton}
+          onPress={() => {}}
+          title="Safe for later"
+          type="outline"
+          textStyle={styles.deleteLabel}
+        />
       </View>
     </View>
   );
