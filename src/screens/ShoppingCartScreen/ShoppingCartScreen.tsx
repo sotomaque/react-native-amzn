@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { Button, ShoppingCartItem } from '../../components';
-import products from '../../data/cart';
+import CheckBox from '@react-native-community/checkbox';
 
+import products from '../../data/cart';
+import { Button, ShoppingCartItem } from '../../components';
 import styles from './styles';
 
 const ShoppingCartScreen = () => {
   const prices = products.map(product => product.item.price);
   const totalPrice = prices.reduce((a, b) => a + b);
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -23,7 +25,22 @@ const ShoppingCartScreen = () => {
         </View>
 
         <Button onPress={() => {}} title={'Proceed to checkout'} />
+        <View
+          style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center' }}>
+          <CheckBox
+            disabled={false}
+            value={toggleCheckBox}
+            onValueChange={newValue => setToggleCheckBox(newValue)}
+            boxType="square"
+            onCheckColor="orange"
+            onTintColor="orange"
+          />
+          <Text style={{ marginLeft: 10, fontSize: 16 }}>
+            This order contains a gift
+          </Text>
+        </View>
       </View>
+
       {/* Product list */}
       <FlatList
         data={products}
