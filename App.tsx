@@ -7,24 +7,23 @@
  *
  * @format
  */
+import 'react-native-gesture-handler';
 
 import React from 'react';
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
-import { ShoppingCartScreen } from './src/screens';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { StatusBar, useColorScheme } from 'react-native';
+import Navigation from './src/navigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.white,
-  };
+  const colorScheme = useColorScheme();
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ShoppingCartScreen />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <StatusBar
+        barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+      />
+      <Navigation colorScheme={colorScheme} />
+    </SafeAreaProvider>
   );
 };
 
