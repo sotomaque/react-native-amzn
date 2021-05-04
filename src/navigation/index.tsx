@@ -1,6 +1,11 @@
 import { RootStackParamList } from './types';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen, ProductScreen, ShoppingCartScreen } from '../screens';
+import {
+  AddressFormScreen,
+  HomeScreen,
+  ProductScreen,
+  ShoppingCartScreen,
+} from '../screens';
 import React from 'react';
 import {
   NavigationContainer,
@@ -24,6 +29,7 @@ const RootNavigator = () => {
       />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Product" component={ProductScreen} />
+      <Stack.Screen name="AddressForm" component={AddressFormScreen} />
     </Stack.Navigator>
   );
 };

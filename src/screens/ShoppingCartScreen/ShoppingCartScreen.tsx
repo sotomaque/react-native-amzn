@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import products from '../../data/cart';
 import { Button, ShoppingCartItem } from '../../components';
 import styles from './styles';
+import { RootStackParamList } from '../../navigation/types';
 
-const ShoppingCartScreen = () => {
+type ShoppingCartScreenProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'Cart'>;
+};
+
+const ShoppingCartScreen = ({ navigation }: ShoppingCartScreenProps) => {
   const totalPrice = products
     .reduce(
       (summedPrice, product) =>
@@ -29,7 +35,10 @@ const ShoppingCartScreen = () => {
           <Text style={styles.price}>{totalPrice}</Text>
         </View>
 
-        <Button onPress={() => {}} title={'Proceed to checkout'} />
+        <Button
+          onPress={() => navigation.navigate('AddressForm')}
+          title={'Proceed to checkout'}
+        />
         <View style={styles.checkboxContainer}>
           <CheckBox
             disabled={false}
