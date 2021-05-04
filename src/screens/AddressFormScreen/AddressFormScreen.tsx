@@ -1,6 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, Dimensions, Pressable, TextInput } from 'react-native';
+import { View, Text, Pressable, TextInput, Animated } from 'react-native';
 import styles from './styles';
 import countryList from 'country-list';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
@@ -11,7 +11,7 @@ const AddressFormScreen = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['25%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -24,62 +24,60 @@ const AddressFormScreen = () => {
   const [fullName, setFullName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [secondaryAddress, setSecondaryAddress] = useState('');
+  const handleClosePress = () => {
+    if (bottomSheetRef.current) {
+      setShowPicker(false);
+      bottomSheetRef.current.close();
+    }
+  };
+
   return (
-    <View
+    <Pressable
+      onPress={handleClosePress}
       style={{
         backgroundColor: 'rgb(241, 241, 241)',
         height: '100%',
-        margin: 10,
       }}>
       {/* Country Picker */}
       {showPicker && (
-        <View
+        <BottomSheet
           style={{
-            position: 'absolute',
-            zIndex: 10,
-            height: '100%',
-            width: '110%',
-            margin: -10,
-          }}>
-          <Pressable
-            style={{
-              backgroundColor: '#bfbcb4',
-              opacity: 0.5,
-              height: Dimensions.get('screen').height - 305,
-              width: '100%',
-            }}
-            onPress={() => setShowPicker(false)}
-          />
-          <Picker
-            selectedValue={country}
-            onValueChange={setCountry}
-            style={{
-              width: '100%',
-            }}>
-            {countries.map((country, index) => (
-              <Picker.Item
-                value={country.name}
-                key={`${country.code}-${index}`}
-                label={country.name}
-              />
-            ))}
-            <Picker.Item value="United States" label="United States" />
-          </Picker>
-        </View>
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: 5,
+          }}
+          animateOnMount={true}
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <Picker
+              selectedValue={country}
+              onValueChange={setCountry}
+              style={{
+                width: '100%',
+              }}>
+              {countries.map((country, index) => (
+                <Picker.Item
+                  value={country.name}
+                  key={`${country.code}-${index}`}
+                  label={country.name}
+                />
+              ))}
+              <Picker.Item value="United States" label="United States" />
+            </Picker>
+          </View>
+        </BottomSheet>
       )}
 
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}>
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text>Awesome 🎉</Text>
-        </View>
-      </BottomSheet>
-
       {/* Country Input / Label */}
-      <View style={{ marginBottom: 10 }}>
+      <View style={{ margin: 10 }}>
         <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
           Country
         </Text>
@@ -108,7 +106,7 @@ const AddressFormScreen = () => {
       </View>
 
       {/* Full Name */}
-      <View style={{ marginVertical: 10 }}>
+      <View style={{ margin: 10 }}>
         <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
           Full Name (First and Last Name)
         </Text>
@@ -131,7 +129,7 @@ const AddressFormScreen = () => {
       </View>
 
       {/* Address */}
-      <View style={{ marginVertical: 10 }}>
+      <View style={{ margin: 10 }}>
         <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
           Address
         </Text>
@@ -173,7 +171,7 @@ const AddressFormScreen = () => {
           autoCorrect={false}
         />
       </View>
-    </View>
+    </Pressable>
   );
 };
 
