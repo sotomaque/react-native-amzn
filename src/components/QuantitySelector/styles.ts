@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#e3e3e3',
+    borderColor: 'rgb(184, 185, 190)',
     alignItems: 'center',
     width: 130,
     justifyContent: 'space-between',
@@ -13,9 +13,12 @@ const styles = StyleSheet.create({
   button: {
     height: 35,
     width: 35,
-    backgroundColor: '#d2d2d2',
+    backgroundColor: 'rgb(233, 234, 238)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 5,
+
+    borderColor: 'rgb(184, 185, 190)',
   },
   buttonLabel: {
     fontSize: 18,

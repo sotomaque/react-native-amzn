@@ -7,17 +7,22 @@ import { Button, ShoppingCartItem } from '../../components';
 import styles from './styles';
 
 const ShoppingCartScreen = () => {
-  const prices = products.map(product => product.item.price);
-  const totalPrice = prices.reduce((a, b) => a + b);
+  const totalPrice = products
+    .reduce(
+      (summedPrice, product) =>
+        summedPrice + product.item.price * product.quantity,
+      0,
+    )
+    .toFixed(2);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
     <View style={styles.container}>
       {/* Subtotal + Proceed to checkout button */}
-      <View style={{ margin: 10 }}>
+      <View style={styles.subtotalContainer}>
         {/* Price */}
         <View style={styles.priceContainer}>
-          <Text style={{ fontSize: 20 }}>
+          <Text style={styles.subtotalLabel}>
             Subtotal ({products.length} item{products.length > 1 ? 's' : ''}):
           </Text>
           <Text style={styles.priceSuperscript}>$</Text>
@@ -25,8 +30,7 @@ const ShoppingCartScreen = () => {
         </View>
 
         <Button onPress={() => {}} title={'Proceed to checkout'} />
-        <View
-          style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.checkboxContainer}>
           <CheckBox
             disabled={false}
             value={toggleCheckBox}
@@ -35,9 +39,7 @@ const ShoppingCartScreen = () => {
             onCheckColor="orange"
             onTintColor="orange"
           />
-          <Text style={{ marginLeft: 10, fontSize: 16 }}>
-            This order contains a gift
-          </Text>
+          <Text style={styles.label}>This order contains a gift</Text>
         </View>
       </View>
 

@@ -8,13 +8,18 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import { ColorSchemeName } from 'react-native';
+import { Header } from '../components';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Cart" component={ShoppingCartScreen} />
+      <Stack.Screen
+        options={{ headerTitle: props => <Header {...props} /> }}
+        name="Cart"
+        component={ShoppingCartScreen}
+      />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Product" component={ProductScreen} />
     </Stack.Navigator>
