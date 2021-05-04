@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ViewProps } from 'react-native';
 
-import styles from './styles';
+type Props = ViewProps & {
+  tintColor?: string;
+  children?: string;
+};
 
-const Header = () => {
+const Header = ({ ...rest }: Props) => {
   return (
-    <View>
+    <View {...rest}>
       <Text>Header</Text>
     </View>
   );

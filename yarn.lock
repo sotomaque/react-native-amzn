@@ -1133,6 +1133,11 @@
     query-string "^6.13.6"
     react-is "^16.13.0"
 
+"@react-navigation/elements@^1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-1.0.0-next.0.tgz#f7271ebb3e9cb49d0266c1dc53e6a9d443f69fcc"
+  integrity sha512-lOk30gCqPKkikp95QpUXXSJkkO0lTjohGO+DHowQOmayTRa6clEmmTvmTx5bgd9Suz32FEe3iYolcWh+Fm62RA==
+
 "@react-navigation/native@^5.9.4":
   version "5.9.4"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.9.4.tgz#414c044423c58aa1cdde1b6494309e0b51da08b8"

@@ -16,7 +16,9 @@ const RootNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{ headerTitle: props => <Header {...props} /> }}
+        options={{
+          headerTitle: props => <Header {...props} />,
+        }}
         name="Cart"
         component={ShoppingCartScreen}
       />
