@@ -5,6 +5,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(241, 241, 241)',
     height: '100%',
   },
+  sheetContainer: {
+    position: 'absolute',
+    zIndex: 100,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: '100%',
+    height: '100%',
+  },
   row: {
     flexDirection: 'row',
   },

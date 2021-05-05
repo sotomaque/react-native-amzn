@@ -1,7 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useMemo, useRef, useState } from 'react';
 import { View, Pressable } from 'react-native';
-import styles from './styles';
 import countryList from 'country-list';
 import RNBottomSheet from '@gorhom/bottom-sheet';
 import { states } from '../../data/states';
@@ -11,6 +10,7 @@ import {
   PickerTextInput,
   TextInput,
 } from '../../components';
+import styles from './styles';
 
 const AddressFormScreen = () => {
   // ref
@@ -41,20 +41,24 @@ const AddressFormScreen = () => {
     <Pressable onPress={handleClosePress} style={styles.container}>
       {/* Country Picker */}
       {showPicker && (
-        // @ts-ignore
-        <BottomSheet
-          ref={bottomSheetRef}
-          snapPoints={snapPoints}
-          selectedValue={country}
-          onValueChange={setCountry}>
-          {countries.map((__country, index) => (
-            <Picker.Item
-              value={__country.name}
-              key={`${__country.code}-${index}`}
-              label={__country.name}
-            />
-          ))}
-        </BottomSheet>
+        <View style={styles.sheetContainer}>
+          {
+            // @ts-ignore
+            <BottomSheet
+              ref={bottomSheetRef}
+              snapPoints={snapPoints}
+              selectedValue={country}
+              onValueChange={setCountry}>
+              {countries.map((__country, index) => (
+                <Picker.Item
+                  value={__country.name}
+                  key={`${__country.code}-${index}`}
+                  label={__country.name}
+                />
+              ))}
+            </BottomSheet>
+          }
+        </View>
       )}
 
       {/* Country Input / Label */}
@@ -89,20 +93,24 @@ const AddressFormScreen = () => {
 
       {/* State Picker */}
       {showStatePicker && (
-        // @ts-ignore
-        <BottomSheet
-          ref={bottomSheetRef}
-          snapPoints={snapPoints}
-          selectedValue={state}
-          onValueChange={setState}>
-          {states.map((_state, index) => (
-            <Picker.Item
-              value={_state.name}
-              key={`${_state.abbreviation}-${index}`}
-              label={_state.name}
-            />
-          ))}
-        </BottomSheet>
+        <View style={styles.sheetContainer}>
+          {
+            // @ts-ignore
+            <BottomSheet
+              ref={bottomSheetRef}
+              snapPoints={snapPoints}
+              selectedValue={state}
+              onValueChange={setState}>
+              {states.map((_state, index) => (
+                <Picker.Item
+                  value={_state.name}
+                  key={`${_state.abbreviation}-${index}`}
+                  label={_state.name}
+                />
+              ))}
+            </BottomSheet>
+          }
+        </View>
       )}
 
       {/* State / Zip Code */}
@@ -113,6 +121,7 @@ const AddressFormScreen = () => {
             placeholder={state || 'Select'}
             onPress={() => setShowStatePicker(true)}
             rightArrowState={showStatePicker}
+            disabled={country !== 'United States of America'}
           />
         </View>
         <View style={styles.zipContainer}>

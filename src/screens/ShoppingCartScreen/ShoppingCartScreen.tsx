@@ -3,10 +3,10 @@ import { View, Text, FlatList } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import products from '../../data/cart';
-import { Button, ShoppingCartItem } from '../../components';
-import styles from './styles';
 import { RootStackParamList } from '../../navigation/types';
+import { Button, ShoppingCartItem } from '../../components';
+import products from '../../data/cart';
+import styles from './styles';
 
 type ShoppingCartScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Cart'>;

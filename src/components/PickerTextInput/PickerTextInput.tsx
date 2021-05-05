@@ -10,6 +10,7 @@ type PickerTextInputProps = {
   onPress: () => any;
   placeholder: string;
   rightArrowState?: boolean;
+  disabled?: boolean;
 };
 
 const PickerTextInput = ({
@@ -17,17 +18,27 @@ const PickerTextInput = ({
   onPress,
   placeholder,
   rightArrowState,
+  disabled,
 }: PickerTextInputProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <Pressable style={styles.pressable} onPress={onPress}>
-        <Text style={styles.placeholderLabel}>{placeholder}</Text>
-        {rightArrowState ? (
-          <Icon name="up" size={18} />
-        ) : (
-          <Icon name="down" size={18} />
-        )}
+      <Pressable
+        style={[
+          styles.pressable,
+          // eslint-disable-next-line react-native/no-inline-styles
+          { backgroundColor: disabled ? 'lightgray' : 'white' },
+        ]}
+        disabled={disabled}
+        onPress={onPress}>
+        <Text style={styles.placeholderLabel}>{!disabled && placeholder}</Text>
+        {!disabled ? (
+          rightArrowState ? (
+            <Icon name="up" size={18} />
+          ) : (
+            <Icon name="down" size={18} />
+          )
+        ) : null}
       </Pressable>
     </View>
   );
