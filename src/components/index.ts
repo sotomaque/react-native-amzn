@@ -6,3 +6,4 @@ export { default as PickerTextInput } from './PickerTextInput';
 export { default as ProductItem } from './ProductItem';
 export { default as QuantitySelector } from './QuantitySelector';
 export { default as ShoppingCartItem } from './ShoppingCartItem';
+export { default as TextInput } from './TextInput';

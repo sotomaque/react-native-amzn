@@ -1,15 +1,20 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, TextInput } from 'react-native';
+import React, { useMemo, useRef, useState } from 'react';
+import { View, Pressable } from 'react-native';
 import styles from './styles';
 import countryList from 'country-list';
-import Icon from 'react-native-vector-icons/dist/AntDesign';
+import RNBottomSheet from '@gorhom/bottom-sheet';
 import { states } from '../../data/states';
-import { BottomSheet, Button, PickerTextInput } from '../../components';
+import {
+  BottomSheet,
+  Button,
+  PickerTextInput,
+  TextInput,
+} from '../../components';
 
 const AddressFormScreen = () => {
   // ref
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<RNBottomSheet>(null);
 
   // variables
   const snapPoints = useMemo(() => ['25%'], []);
@@ -20,6 +25,7 @@ const AddressFormScreen = () => {
   const [showStatePicker, setShowStatePicker] = useState(false);
   const [fullName, setFullName] = useState('');
   const [city, setCity] = useState('');
+  const [zip, setZip] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [secondaryAddress, setSecondaryAddress] = useState('');
 
@@ -32,12 +38,7 @@ const AddressFormScreen = () => {
   };
 
   return (
-    <Pressable
-      onPress={handleClosePress}
-      style={{
-        backgroundColor: 'rgb(241, 241, 241)',
-        height: '100%',
-      }}>
+    <Pressable onPress={handleClosePress} style={styles.container}>
       {/* Country Picker */}
       {showPicker && (
         // @ts-ignore
@@ -65,95 +66,26 @@ const AddressFormScreen = () => {
       />
 
       {/* Full Name */}
-      <View style={{ margin: 10 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
-          Full Name (First and Last Name)
-        </Text>
-
-        <TextInput
-          style={{
-            fontSize: 18,
-            paddingLeft: 10,
-            borderWidth: 1,
-            borderColor: 'gray',
-            height: 45,
-            backgroundColor: 'white',
-            borderRadius: 5,
-          }}
-          value={fullName}
-          onChangeText={text => setFullName(text)}
-          clearButtonMode="always"
-          autoCorrect={false}
-        />
-      </View>
+      <TextInput
+        label="Full Name (First and Last Name)"
+        onChangeText={setFullName}
+        value={fullName}
+      />
 
       {/* Address */}
-      <View style={{ margin: 10 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
-          Address
-        </Text>
-
-        <TextInput
-          style={{
-            fontSize: 18,
-            paddingLeft: 10,
-            borderWidth: 1,
-            borderTopLeftRadius: 5,
-            borderTopRightRadius: 5,
-            borderColor: 'gray',
-            height: 45,
-            backgroundColor: 'white',
-          }}
-          placeholder="Street address or P.O. Box"
-          value={streetAddress}
-          onChangeText={text => setStreetAddress(text)}
-          clearButtonMode="always"
-          autoCorrect={false}
-        />
-        <TextInput
-          style={{
-            fontSize: 18,
-            paddingLeft: 10,
-            borderBottomWidth: 1,
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderBottomLeftRadius: 5,
-            borderBottomRightRadius: 5,
-            borderColor: 'gray',
-            height: 45,
-            backgroundColor: 'white',
-          }}
-          placeholder="Apt, Suite, Unit, Building (optional)"
-          value={secondaryAddress}
-          onChangeText={text => setSecondaryAddress(text)}
-          clearButtonMode="always"
-          autoCorrect={false}
-        />
-      </View>
+      <TextInput
+        label="Address"
+        placeholder="Street address or P.O. Box"
+        value={streetAddress}
+        onChangeText={setStreetAddress}
+        multiline
+        placeholderBottom="Apt, Suite, Unit, Building (optional)"
+        valueBottom={secondaryAddress}
+        onChangeTextBottom={setSecondaryAddress}
+      />
 
       {/* City */}
-      <View style={{ margin: 10 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
-          City
-        </Text>
-
-        <TextInput
-          style={{
-            fontSize: 18,
-            paddingLeft: 10,
-            borderWidth: 1,
-            borderTopLeftRadius: 5,
-            borderTopRightRadius: 5,
-            borderColor: 'gray',
-            height: 45,
-            backgroundColor: 'white',
-          }}
-          value={city}
-          onChangeText={text => setCity(text)}
-          clearButtonMode="always"
-          autoCorrect={false}
-        />
-      </View>
+      <TextInput label="City" onChangeText={setCity} value={city} />
 
       {/* State Picker */}
       {showStatePicker && (
@@ -174,61 +106,17 @@ const AddressFormScreen = () => {
       )}
 
       {/* State / Zip Code */}
-      <View
-        style={[styles.row, { margin: 10, justifyContent: 'space-between' }]}>
-        <View style={{ flex: 1, marginRight: 5 }}>
-          <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
-            State
-          </Text>
-
-          <Pressable
-            disabled={country !== 'United States of America'}
-            style={[
-              styles.row,
-              {
-                borderWidth: 1,
-                borderColor: 'gray',
-                height: 45,
-                backgroundColor: 'rgb(240, 240, 240)',
-                opacity: country === 'United States of America' ? 1 : 0.5,
-                padding: 5,
-                alignItems: 'center',
-                borderRadius: 5,
-                justifyContent: 'space-between',
-              },
-            ]}
-            onPress={() => setShowStatePicker(true)}>
-            <Text style={{ fontSize: 18, marginLeft: 5 }}>
-              {state || 'Select'}
-            </Text>
-            {showStatePicker ? (
-              <Icon name="up" size={18} />
-            ) : (
-              <Icon name="down" size={18} />
-            )}
-          </Pressable>
-        </View>
-        <View style={{ flex: 1, marginLeft: 5 }}>
-          <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
-            City
-          </Text>
-
-          <TextInput
-            style={{
-              fontSize: 18,
-              paddingLeft: 10,
-              borderWidth: 1,
-              borderTopLeftRadius: 5,
-              borderTopRightRadius: 5,
-              borderColor: 'gray',
-              height: 45,
-              backgroundColor: 'white',
-            }}
-            value={city}
-            onChangeText={text => setCity(text)}
-            clearButtonMode="always"
-            autoCorrect={false}
+      <View style={styles.stateAndZipContainer}>
+        <View style={styles.stateContainer}>
+          <PickerTextInput
+            label="State"
+            placeholder={state || 'Select'}
+            onPress={() => setShowStatePicker(true)}
+            rightArrowState={showStatePicker}
           />
+        </View>
+        <View style={styles.zipContainer}>
+          <TextInput label="Zip" onChangeText={setZip} value={zip} />
         </View>
       </View>
 
@@ -238,7 +126,7 @@ const AddressFormScreen = () => {
       <Button
         title="Use this address"
         onPress={() => {}}
-        style={{ marginHorizontal: 10 }}
+        style={styles.button}
       />
     </Pressable>
   );
