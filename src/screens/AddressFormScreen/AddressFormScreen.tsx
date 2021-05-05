@@ -1,10 +1,11 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, Pressable, TextInput, Animated } from 'react-native';
+import { View, Text, Pressable, TextInput } from 'react-native';
 import styles from './styles';
 import countryList from 'country-list';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { states } from '../../data/states';
 
 const AddressFormScreen = () => {
   // ref
@@ -12,21 +13,20 @@ const AddressFormScreen = () => {
 
   // variables
   const snapPoints = useMemo(() => ['25%'], []);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   const countries = countryList.getData();
-  const [country, setCountry] = useState(countries[0].name);
+  const [country, setCountry] = useState(countries[232].name);
+  const [state, setState] = useState('');
   const [showPicker, setShowPicker] = useState(false);
+  const [showStatePicker, setShowStatePicker] = useState(false);
   const [fullName, setFullName] = useState('');
+  const [city, setCity] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [secondaryAddress, setSecondaryAddress] = useState('');
+
   const handleClosePress = () => {
     if (bottomSheetRef.current) {
       setShowPicker(false);
+      setShowStatePicker(false);
       bottomSheetRef.current.close();
     }
   };
@@ -49,13 +49,11 @@ const AddressFormScreen = () => {
             },
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
-
             elevation: 5,
           }}
           animateOnMount={true}
           ref={bottomSheetRef}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}>
+          snapPoints={snapPoints}>
           <View style={{ flex: 1, alignItems: 'center' }}>
             <Picker
               selectedValue={country}
@@ -88,7 +86,7 @@ const AddressFormScreen = () => {
               borderWidth: 1,
               borderColor: 'gray',
               height: 45,
-              backgroundColor: 'white',
+              backgroundColor: 'rgb(240, 240, 240)',
               padding: 5,
               alignItems: 'center',
               borderRadius: 5,
@@ -170,6 +168,125 @@ const AddressFormScreen = () => {
           clearButtonMode="always"
           autoCorrect={false}
         />
+      </View>
+
+      {/* City */}
+      <View style={{ margin: 10 }}>
+        <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
+          City
+        </Text>
+
+        <TextInput
+          style={{
+            fontSize: 18,
+            paddingLeft: 10,
+            borderWidth: 1,
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
+            borderColor: 'gray',
+            height: 45,
+            backgroundColor: 'white',
+          }}
+          value={city}
+          onChangeText={text => setCity(text)}
+          clearButtonMode="always"
+          autoCorrect={false}
+        />
+      </View>
+
+      {/* State Picker */}
+      {showStatePicker && (
+        <BottomSheet
+          style={{
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}
+          animateOnMount={true}
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <Picker
+              selectedValue={state}
+              onValueChange={setState}
+              style={{
+                width: '100%',
+              }}>
+              {states.map((_state, index) => (
+                <Picker.Item
+                  value={_state.name}
+                  key={`${_state.abbreviation}-${index}`}
+                  label={_state.name}
+                />
+              ))}
+              <Picker.Item value="United States" label="United States" />
+            </Picker>
+          </View>
+        </BottomSheet>
+      )}
+
+      {/* State / Zip Code */}
+      <View
+        style={[styles.row, { margin: 10, justifyContent: 'space-between' }]}>
+        <View style={{ flex: 1, marginRight: 5 }}>
+          <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
+            State
+          </Text>
+
+          <Pressable
+            disabled={country !== 'United States of America'}
+            style={[
+              styles.row,
+              {
+                borderWidth: 1,
+                borderColor: 'gray',
+                height: 45,
+                backgroundColor: 'rgb(240, 240, 240)',
+                opacity: country === 'United States of America' ? 1 : 0.5,
+                padding: 5,
+                alignItems: 'center',
+                borderRadius: 5,
+                justifyContent: 'space-between',
+              },
+            ]}
+            onPress={() => setShowStatePicker(true)}>
+            <Text style={{ fontSize: 18, marginLeft: 5 }}>
+              {state || 'Select'}
+            </Text>
+            {showStatePicker ? (
+              <Icon name="up" size={18} />
+            ) : (
+              <Icon name="down" size={18} />
+            )}
+          </Pressable>
+        </View>
+        <View style={{ flex: 1, marginLeft: 5 }}>
+          <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
+            City
+          </Text>
+
+          <TextInput
+            style={{
+              fontSize: 18,
+              paddingLeft: 10,
+              borderWidth: 1,
+              borderTopLeftRadius: 5,
+              borderTopRightRadius: 5,
+              borderColor: 'gray',
+              height: 45,
+              backgroundColor: 'white',
+            }}
+            value={city}
+            onChangeText={text => setCity(text)}
+            clearButtonMode="always"
+            autoCorrect={false}
+          />
+        </View>
       </View>
     </Pressable>
   );
