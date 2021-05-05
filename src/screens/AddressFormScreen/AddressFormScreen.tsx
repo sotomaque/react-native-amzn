@@ -5,7 +5,7 @@ import styles from './styles';
 import countryList from 'country-list';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 import { states } from '../../data/states';
-import { BottomSheet, Button } from '../../components';
+import { BottomSheet, Button, PickerTextInput } from '../../components';
 
 const AddressFormScreen = () => {
   // ref
@@ -46,44 +46,23 @@ const AddressFormScreen = () => {
           snapPoints={snapPoints}
           selectedValue={country}
           onValueChange={setCountry}>
-          {countries.map((country, index) => (
+          {countries.map((__country, index) => (
             <Picker.Item
-              value={country.name}
-              key={`${country.code}-${index}`}
-              label={country.name}
+              value={__country.name}
+              key={`${__country.code}-${index}`}
+              label={__country.name}
             />
           ))}
         </BottomSheet>
       )}
 
       {/* Country Input / Label */}
-      <View style={{ margin: 10 }}>
-        <Text style={{ fontSize: 16, marginBottom: 5, fontWeight: '600' }}>
-          Country
-        </Text>
-        <Pressable
-          style={[
-            styles.row,
-            {
-              borderWidth: 1,
-              borderColor: 'gray',
-              height: 45,
-              backgroundColor: 'rgb(240, 240, 240)',
-              padding: 5,
-              alignItems: 'center',
-              borderRadius: 5,
-              justifyContent: 'space-between',
-            },
-          ]}
-          onPress={() => setShowPicker(true)}>
-          <Text style={{ fontSize: 18, marginLeft: 5 }}>{country}</Text>
-          {showPicker ? (
-            <Icon name="up" size={18} />
-          ) : (
-            <Icon name="down" size={18} />
-          )}
-        </Pressable>
-      </View>
+      <PickerTextInput
+        label="Country"
+        placeholder={country}
+        onPress={() => setShowPicker(true)}
+        rightArrowState={showPicker}
+      />
 
       {/* Full Name */}
       <View style={{ margin: 10 }}>
