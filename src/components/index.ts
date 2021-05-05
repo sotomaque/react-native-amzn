@@ -1,4 +1,5 @@
 export { default as Button } from './Button';
+export { default as BottomSheet } from './BottomSheet';
 export { default as Header } from './Header';
 export { default as ImageCarousel } from './ImageCarousel';
 export { default as ProductItem } from './ProductItem';

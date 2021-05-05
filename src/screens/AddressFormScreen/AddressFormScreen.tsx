@@ -4,8 +4,8 @@ import { View, Text, Pressable, TextInput } from 'react-native';
 import styles from './styles';
 import countryList from 'country-list';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { states } from '../../data/states';
+import { BottomSheet, Button } from '../../components';
 
 const AddressFormScreen = () => {
   // ref
@@ -40,37 +40,19 @@ const AddressFormScreen = () => {
       }}>
       {/* Country Picker */}
       {showPicker && (
+        // @ts-ignore
         <BottomSheet
-          style={{
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
-          animateOnMount={true}
           ref={bottomSheetRef}
-          snapPoints={snapPoints}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Picker
-              selectedValue={country}
-              onValueChange={setCountry}
-              style={{
-                width: '100%',
-              }}>
-              {countries.map((country, index) => (
-                <Picker.Item
-                  value={country.name}
-                  key={`${country.code}-${index}`}
-                  label={country.name}
-                />
-              ))}
-              <Picker.Item value="United States" label="United States" />
-            </Picker>
-          </View>
+          snapPoints={snapPoints}
+          selectedValue={country}
+          onValueChange={setCountry}>
+          {countries.map((country, index) => (
+            <Picker.Item
+              value={country.name}
+              key={`${country.code}-${index}`}
+              label={country.name}
+            />
+          ))}
         </BottomSheet>
       )}
 
@@ -196,37 +178,19 @@ const AddressFormScreen = () => {
 
       {/* State Picker */}
       {showStatePicker && (
+        // @ts-ignore
         <BottomSheet
-          style={{
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
-          animateOnMount={true}
           ref={bottomSheetRef}
-          snapPoints={snapPoints}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Picker
-              selectedValue={state}
-              onValueChange={setState}
-              style={{
-                width: '100%',
-              }}>
-              {states.map((_state, index) => (
-                <Picker.Item
-                  value={_state.name}
-                  key={`${_state.abbreviation}-${index}`}
-                  label={_state.name}
-                />
-              ))}
-              <Picker.Item value="United States" label="United States" />
-            </Picker>
-          </View>
+          snapPoints={snapPoints}
+          selectedValue={state}
+          onValueChange={setState}>
+          {states.map((_state, index) => (
+            <Picker.Item
+              value={_state.name}
+              key={`${_state.abbreviation}-${index}`}
+              label={_state.name}
+            />
+          ))}
         </BottomSheet>
       )}
 
@@ -288,6 +252,15 @@ const AddressFormScreen = () => {
           />
         </View>
       </View>
+
+      {/* Make default */}
+
+      {/* Button */}
+      <Button
+        title="Use this address"
+        onPress={() => {}}
+        style={{ marginHorizontal: 10 }}
+      />
     </Pressable>
   );
 };
