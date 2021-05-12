@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   pressable: {
     flexDirection: 'row',
     borderWidth: 1,
+    borderColor: 'gray',
     height: 45,
     backgroundColor: 'rgb(240, 240, 240)',
     padding: 5,
