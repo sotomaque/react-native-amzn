@@ -1,17 +1,26 @@
 import { Picker } from '@react-native-picker/picker';
+import { useRoute } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
 import { Button, ImageCarousel, QuantitySelector } from '../../components';
+import { useCart } from '../../context/cart';
 
 import product from '../../data/product';
 import styles from './styles';
 
 const ProductScreen = () => {
+  const route = useRoute();
+  const { id } = route.params;
   const [showPicker, setShowPicker] = useState(false);
   const [selectedOption, setSelectedOption] = useState(
     product?.options ? product.options[0] : null,
   );
   const [quantity, setQuantity] = useState(1);
+  const { dispatch } = useCart();
+
+  const handleAddToCart = () => {
+    dispatch({ type: 'addToCart', payload: id });
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -61,7 +70,7 @@ const ProductScreen = () => {
 
       {/* Button(s) */}
       <View style={styles.buttonGroup}>
-        <Button title="Add to Cart" onPress={() => {}} />
+        <Button title="Add to Cart" onPress={handleAddToCart} />
         <Button title="Buy Now" onPress={() => {}} type="secondary" />
       </View>
     </ScrollView>

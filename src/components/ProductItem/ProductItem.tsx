@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { ProductType } from '../../types';
 
@@ -19,8 +20,14 @@ const ProductItem = ({ product }: ProductItemProps) => {
     prevPrice = '',
   } = product;
 
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Product', { id: product.id });
+  };
+
   return (
-    <View style={styles.root}>
+    <Pressable onPress={handlePress} style={styles.root}>
       <Image
         source={{
           uri,
@@ -77,7 +84,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           {prevPrice && <Text style={styles.oldPrice}>${prevPrice}</Text>}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

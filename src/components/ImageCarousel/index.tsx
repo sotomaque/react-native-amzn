@@ -57,7 +57,7 @@ const ImageCarousel = ({ images }: ImageCarouselProps) => {
                   index === activeIndex ? 'rgb(233, 162, 51)' : '#c9c9c9',
               },
             ]}
-            key={`${image}`}
+            key={`${image}-${index}`}
           />
         ))}
       </View>
