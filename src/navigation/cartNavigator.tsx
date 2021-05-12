@@ -1,13 +1,14 @@
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   AddressFormScreen,
   ProductScreen,
   ShoppingCartScreen,
 } from '../screens';
-import { RootStackParamList } from './types';
-import React from 'react';
-const CartStack = createStackNavigator<RootStackParamList>();
 
+import { CartStackParamList } from './types';
+
+const CartStack = createStackNavigator<CartStackParamList>();
 const CartNavigator = () => {
   return (
     <CartStack.Navigator>

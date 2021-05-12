@@ -1,10 +1,10 @@
-import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { ProductScreen, AddressFormScreen, SearchScreen } from '../screens';
-import { RootStackParamList } from './types';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const HomeStack = createStackNavigator<RootStackParamList>();
+import { ProductScreen, SearchScreen } from '../screens';
+import { HomeStackParamList } from './types';
 
+const HomeStack = createStackNavigator<HomeStackParamList>();
 const Home = () => {
   return (
     <HomeStack.Navigator>

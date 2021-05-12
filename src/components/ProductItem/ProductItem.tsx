@@ -1,16 +1,18 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { ProductType } from '../../types';
 
+import { ProductType } from '../../types';
+import { HomeStackParamList } from '../../navigation/types';
 import styles from './styles';
 
 type ProductItemProps = {
+  navigation: StackNavigationProp<HomeStackParamList, 'Product'>;
   product: ProductType;
 };
 
-const ProductItem = ({ product }: ProductItemProps) => {
+const ProductItem = ({ navigation, product }: ProductItemProps) => {
   const {
     image: uri,
     title,
@@ -19,8 +21,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
     price,
     prevPrice = '',
   } = product;
-
-  const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate('Product', { id: product.id });

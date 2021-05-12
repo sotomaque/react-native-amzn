@@ -1,8 +1,10 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import { AccountScreen } from '../screens';
 import React from 'react';
-const AccountStack = createStackNavigator();
+import { createStackNavigator } from '@react-navigation/stack';
 
+import { AccountScreen } from '../screens';
+import { AccountStackParamList } from './types';
+
+const AccountStack = createStackNavigator<AccountStackParamList>();
 const AccountNavigator = () => {
   return (
     <AccountStack.Navigator>
