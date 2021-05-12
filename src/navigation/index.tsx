@@ -1,11 +1,3 @@
-import { RootStackParamList } from './types';
-import { createStackNavigator } from '@react-navigation/stack';
-import {
-  AddressFormScreen,
-  HomeScreen,
-  ProductScreen,
-  ShoppingCartScreen,
-} from '../screens';
 import React from 'react';
 import {
   NavigationContainer,
@@ -13,32 +5,13 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import { ColorSchemeName } from 'react-native';
-import { Header } from '../components';
-
-const Stack = createStackNavigator<RootStackParamList>();
-
-const RootNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{
-          headerTitle: props => <Header {...props} />,
-        }}
-        name="Cart"
-        component={ShoppingCartScreen}
-      />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Product" component={ProductScreen} />
-      <Stack.Screen name="AddressForm" component={AddressFormScreen} />
-    </Stack.Navigator>
-  );
-};
+import Tabs from './tabs';
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   return (
     <NavigationContainer
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      <Tabs />
     </NavigationContainer>
   );
 };
